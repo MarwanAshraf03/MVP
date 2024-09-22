@@ -8,28 +8,19 @@ void calculate_for_hor(double *p2_angle, double *rayx, double *rayy,
 	*checks = 0;
 	if (*p2_angle <= 360 && *p2_angle > 180)
 	{
-		printf("hor not not else\n");
 		*up = 1;
-		*rayy = ((int)posy / 64) * 64;
+		*rayy = ((int)posy / BLOCK_SIZE) * BLOCK_SIZE;
 		*rayx = (posy - *rayy) * angle_tan + posx;
-		*yd = -64;
+		*yd = -BLOCK_SIZE;
 		*xd = -(*yd) * angle_tan;
 	}
 	else if (*p2_angle > 0 && *p2_angle < 180)
 	{
-		printf("hor not else\n");
 		*up = 0;
-		*rayy = ((int)posy / 64) * 64 + 64;
+		*rayy = ((int)posy / BLOCK_SIZE) * BLOCK_SIZE + BLOCK_SIZE;
 		*rayx = (posy - *rayy) * angle_tan + posx;
-		*yd = 64;
+		*yd = BLOCK_SIZE;
 		*xd = -(*yd) * angle_tan;
-	}
-	else
-	{
-		printf("hor else\n");
-		*rayx = posx;
-		*rayy = posy;
-		*checks = 8;
 	}
 }
 
@@ -43,29 +34,20 @@ void calculate_for_ver(double *p2_angle, double *vrayx, double *vrayy,
 	if ((*p2_angle > 270 && *p2_angle < 360) ||
 		(*p2_angle >= 0 && *p2_angle < 90))
 	{
-		printf("not not else\n");
 		*right = 1;
-		*vrayx = (int)((posx + 64) / 64) * 64;
+		*vrayx = (int)((posx + BLOCK_SIZE) / BLOCK_SIZE) * BLOCK_SIZE;
 		*vrayy = (posx - *vrayx) * nangle_tan + posy;
-		*xd = 64;
+		*xd = BLOCK_SIZE;
 		*yd = -(*xd) * nangle_tan;
 	}
 	else if (*p2_angle < 270 && *p2_angle > 90)
 	{
 
-		printf("not else\n");
 		*right = 0;
-		*vrayx = ((int)posx / 64) * 64;
+		*vrayx = ((int)posx / BLOCK_SIZE) * BLOCK_SIZE;
 		*vrayy = (posx - *vrayx) * nangle_tan + posy;
-		*xd = -64;
+		*xd = -BLOCK_SIZE;
 		*yd = -(*xd) * nangle_tan;
-	}
-	else
-	{
-		printf("else\n");
-		*vrayx = posx;
-		*vrayy = posy;
-		*checks = 8;
 	}
 }
 
@@ -87,16 +69,18 @@ double *intersections_combined(void)
 		double *ret2 = malloc(sizeof(double) * 2);
 
 		calculate_for_hor(&p2_angle, &rayx, &rayy, &yd, &xd, &checks, &up);
-		while (checks < 8)
+		while (checks < 22)
 		{
-			mx = (int)rayx / 64;
+			mx = (int)rayx / BLOCK_SIZE;
 			my = 0;
 
 			if (up)
-				my = ((int)rayy / 64) - 1;
+				my = ((int)rayy / BLOCK_SIZE) - 1;
 			if (!up)
-				my = ((int)rayy / 64);
-			if ((worldMap[my][mx] == 0))
+				my = ((int)rayy / BLOCK_SIZE);
+			mx = abs(mx);
+			my = abs(my);
+			if ((mx <= mapHeight && my <= mapWidth) && (worldMap[my][mx] == 0))
 			{
 				rayy += yd;
 				rayx += xd;
@@ -106,14 +90,14 @@ double *intersections_combined(void)
 				break;
 		}
 		calculate_for_ver(&p2_angle, &vrayx, &vrayy, &yd, &xd, &checks, &right);
-		while (checks < 8)
+		while (checks < 22)
 		{
-			my = (int)vrayy / 64;
+			my = (int)vrayy / BLOCK_SIZE;
 			mx;
 			if (right)
-				mx = ((int)vrayx / 64);
+				mx = ((int)vrayx / BLOCK_SIZE);
 			if (!right)
-				mx = ((int)vrayx / 64) - 1;
+				mx = ((int)vrayx / BLOCK_SIZE) - 1;
 			if ((mx > mapWidth || my > mapHeight) || (worldMap[my][mx] == 0))
 			{
 				vrayy += yd;
@@ -135,10 +119,27 @@ double *intersections_combined(void)
 		double *sh = shorter(ret, ret2);
 
 		SDL_RenderDrawLine(renderer, posx + 5, posy + 5, sh[0], sh[1]);
+		draw_3d(sh, r_no);
 		free(sh);
 	}
 }
 
-void draw_3d(void)
+void draw_3d(double *sh, int r_no)
 {
+	float distance = dist(sh);
+	float line_height = (BLOCK_SIZE * screenHeight) / distance;
+
+	if (line_height > screenHeight)
+		line_height = screenHeight;
+	if (side)
+		SDL_SetRenderDrawColor(renderer2, 255, 0, 0, 255);
+	else
+		SDL_SetRenderDrawColor(renderer2, 0, 255, 0, 255);
+	SDL_Rect rect;
+
+	rect.h = line_height;
+	rect.w = 12;
+	rect.x = ((double)r_no / 60.0) * screenWidth;
+	rect.y = (screenHeight / 2) - (line_height / 2);
+	SDL_RenderFillRect(renderer2, &rect);
 }

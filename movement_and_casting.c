@@ -25,18 +25,18 @@ void move_turn_player(void)
 				posx -= posdx;
 				break;
 			case 80:
-				p_angle -= 5;
+				p_angle -= 1;
 				if (p_angle < 0)
 					p_angle += 360;
-				posdx = cos(p_angle * DEG) * (10 * sqrt(2));
-				posdy = sin(p_angle * DEG) * (10 * sqrt(2));
+				posdx = cos(p_angle * DEG) * (5 * sqrt(2));
+				posdy = sin(p_angle * DEG) * (5 * sqrt(2));
 				break;
 			case 79:
-				p_angle += 5;
+				p_angle += 1;
 				if (p_angle >= 360)
 					p_angle -= 360;
-				posdx = cos(p_angle * DEG) * (10 * sqrt(2));
-				posdy = sin(p_angle * DEG) * (10 * sqrt(2));
+				posdx = cos(p_angle * DEG) * (5 * sqrt(2));
+				posdy = sin(p_angle * DEG) * (5 * sqrt(2));
 				break;
 			case 41:
 				state = 0;

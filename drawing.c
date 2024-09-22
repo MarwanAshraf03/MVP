@@ -12,10 +12,10 @@ void draw_world(void)
 	{
 		for (int j = 0; j < mapHeight; j++)
 		{
-			SDL_Rect rect = {j * 64,
-							 i * 64,
-							 64,
-							 64};
+			SDL_Rect rect = {j * BLOCK_SIZE,
+							 i * BLOCK_SIZE,
+							 BLOCK_SIZE,
+							 BLOCK_SIZE};
 			if (worldMap[i][j] == 1)
 			{
 				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
