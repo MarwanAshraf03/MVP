@@ -1,5 +1,16 @@
 #include "project.h"
 
+/**
+ * calculate_for_hor - returns the coordinates of the
+ * @p2_angle: hello world
+ * @rayx: hello world
+ * @rayy: hello world
+ * @yd: hello world
+ * @xd: hello world
+ * @checks: hello world
+ * @up: hello world
+ * Return: returns coordinates of the shorter point
+ */
 void calculate_for_hor(double *p2_angle, double *rayx, double *rayy,
 					   double *yd, double *xd, int *checks, int *up)
 {
@@ -24,6 +35,17 @@ void calculate_for_hor(double *p2_angle, double *rayx, double *rayy,
 	}
 }
 
+/**
+ * calculate_for_ver - returns the coordinates of the
+ * @p2_angle: hello world
+ * @vrayx: hello world
+ * @vrayy: hello world
+ * @yd: hello world
+ * @xd: hello world
+ * @checks: hello world
+ * @right: hello world
+ * Return: returns coordinates of the shorter point
+ */
 void calculate_for_ver(double *p2_angle, double *vrayx, double *vrayy,
 					   double *yd, double *xd, int *checks, int *right)
 {
@@ -51,6 +73,10 @@ void calculate_for_ver(double *p2_angle, double *vrayx, double *vrayy,
 	}
 }
 
+/**
+ * intersections_combined - returns the coordinates of the
+ * Return: returns coordinates of the shorter point
+ */
 double *intersections_combined(void)
 {
 	int r_no, checks, right = -1, up = -1, mx, my;
@@ -124,6 +150,11 @@ double *intersections_combined(void)
 	}
 }
 
+/**
+ * draw_3d - returns the coordinates of the
+ * @sh: coordinates of the horizontal intersection
+ * @r_no: coordinates of the horizontal intersection
+ */
 void draw_3d(double *sh, int r_no)
 {
 	float distance = dist(sh);
