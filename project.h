@@ -34,7 +34,6 @@ float dist(double *shorter);
 void draw_3d(double *sh, int r_no);
 int check_wall_front(void);
 int check_wall_back(void);
-void choose_map(void);
 void parse_map(int lineNumber);
 
 #endif
