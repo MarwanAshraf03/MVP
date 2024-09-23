@@ -2,6 +2,7 @@
 #define PROJECT_H
 #include <SDL2/SDL.h>
 #include <math.h>
+#include <stdlib.h>
 #define mapWidth 22
 #define mapHeight 22
 #define screenWidth 704
@@ -21,16 +22,19 @@ extern int worldMap[mapHeight][mapWidth];
 
 void draw_world(void);
 void draw_player(void);
-void draw_player2(void);
 void move_turn_player(void);
 double *shorter(double *h, double *v);
 double *intersections_combined(void);
 void calculate_for_hor(double *p2_angle, double *rayx, double *rayy,
-					   double *yd, double *xd, int *checks, int *up);
+                       double *yd, double *xd, int *checks, int *up);
 void calculate_for_ver(double *p2_angle, double *vrayx, double *vrayy,
-					   double *yd, double *xd, int *checks, int *right);
+                       double *yd, double *xd, int *checks, int *right);
 void ver_or_hor(int s);
 float dist(double *shorter);
 void draw_3d(double *sh, int r_no);
+int check_wall_front(void);
+int check_wall_back(void);
+void choose_map(void);
+void parse_map(int lineNumber);
 
 #endif
