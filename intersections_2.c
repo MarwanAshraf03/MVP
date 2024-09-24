@@ -9,10 +9,12 @@
  * @xd: hello world
  * @checks: hello world
  * @up: hello world
+ * @posx: x position of player
+ * @posy: y position of player
  * Return: returns coordinates of the shorter point
  */
 void calculate_for_hor(double *p2_angle, double *rayx, double *rayy,
-					   double *yd, double *xd, int *checks, int *up)
+					   double *yd, double *xd, int *checks, int *up, double posx, double posy)
 {
 	double angle_tan = -1 / tan(*p2_angle * DEG);
 
@@ -45,10 +47,12 @@ void calculate_for_hor(double *p2_angle, double *rayx, double *rayy,
  * @rayy: the y axis of the horizontal intersection
  * @yd: the displacement for the y axis
  * @xd: the displacement for the x axis
+ * @worldMap: 2d representation of the game
  * Return: the state of the intersection either 1 or 0
  */
 int iterate_for_hor(int *mx, int *my, int *up, int *checks,
-					double *rayx, double *rayy, double *yd, double *xd)
+					double *rayx, double *rayy, double *yd,
+					double *xd, int worldMap[mapWidth][mapHeight])
 {
 	*mx = (int)*rayx / BLOCK_SIZE;
 	*my = 0;
@@ -79,10 +83,13 @@ int iterate_for_hor(int *mx, int *my, int *up, int *checks,
  * @xd: hello world
  * @checks: hello world
  * @right: hello world
+ * @posx: x position of player
+ * @posy: y position of player
  * Return: returns coordinates of the shorter point
  */
 void calculate_for_ver(double *p2_angle, double *vrayx, double *vrayy,
-					   double *yd, double *xd, int *checks, int *right)
+					   double *yd, double *xd, int *checks,
+					   int *right, double posx, double posy)
 {
 	*checks = 0;
 
@@ -118,10 +125,12 @@ void calculate_for_ver(double *p2_angle, double *vrayx, double *vrayy,
  * @vrayy: the y axis of the vertical intersection
  * @yd: the displacement for the y axis
  * @xd: the displacement for the x axis
+ * @worldMap: 2d representation of the game
  * Return: the state of the intersection either 1 or 0
  */
 int iterate_for_ver(int *mx, int *my, int *right, int *checks,
-					double *vrayx, double *vrayy, double *yd, double *xd)
+					double *vrayx, double *vrayy, double *yd, double *xd,
+					int worldMap[mapWidth][mapHeight])
 {
 	*my = (int)*vrayy / BLOCK_SIZE;
 	if (*right)

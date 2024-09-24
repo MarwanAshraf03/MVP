@@ -3,8 +3,9 @@
 /**
  * parse_map - gets map from a file
  * @lineNumber: the line containing the map
+ * @worldMap: 2d representation of the game
  */
-void parse_map(int lineNumber)
+void parse_map(int lineNumber, int worldMap[mapWidth][mapHeight])
 {
 	FILE *maps = fopen("maps.txt", "r");
 	int count = 1;

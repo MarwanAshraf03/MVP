@@ -2,8 +2,16 @@
 
 /**
  * draw_world_on_viewport - draws the worldMap
+ * @renderer2: renderer to put world on
+ * @posx: x position of player
+ * @posy: y position of player
+ * @posdy: delta x position of player
+ * @posdx: delta y position of player
+ * @worldMap: 2d representation of the game
  */
-void draw_world_on_viewport(void)
+void draw_world_on_viewport(SDL_Renderer *renderer2, double posx, double posy,
+							double posdy, double posdx,
+							int worldMap[mapWidth][mapHeight])
 {
 	SDL_Rect rect;
 
@@ -33,14 +41,20 @@ void draw_world_on_viewport(void)
 	}
 
 	SDL_RenderSetViewport(renderer2, NULL);
-	draw_player_on_viewport(rect);
+	draw_player_on_viewport(renderer2, rect, posx, posy, posdy, posdx);
 }
 
 /**
  * draw_player_on_viewport - draws the player
+ * @renderer2: renderer to put world on
  * @rect: the map that player needs to be drawn on
+ * @posx: x position of player
+ * @posy: y position of player
+ * @posdy: delta x position of player
+ * @posdx: delta y position of player
  */
-void draw_player_on_viewport(SDL_Rect rect)
+void draw_player_on_viewport(SDL_Renderer *renderer2,
+							 SDL_Rect rect, double posx, double posy, double posdy, double posdx)
 {
 	SDL_Rect rect1;
 	float center;
@@ -49,7 +63,6 @@ void draw_player_on_viewport(SDL_Rect rect)
 	rect1.x = rect.x + posx / 4, rect1.y = posy / 4;
 	center = ((float)rect1.w / 2.0);
 	SDL_SetRenderDrawColor(renderer2, 255, 0, 0, 255);
-	DrawCircle(renderer2, rect.x + posx / 4, posy / 4, 8);
 	SDL_RenderFillRect(renderer2, &rect1);
 	SDL_SetRenderDrawColor(renderer2, 0, 0, 255, 255);
 	SDL_RenderDrawLine(renderer2, rect.x + posx / 4 + center, posy / 4 + center,

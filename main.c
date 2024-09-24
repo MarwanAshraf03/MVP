@@ -1,21 +1,20 @@
 #include "project.h"
 
-double posx = 276.365627, posy = 292.160488, posdx = 0, posdy = 0, state = 1;
-double p_angle;
-int side = -1, map_on = 1;
-SDL_Window *window;
-SDL_Renderer *renderer;
-SDL_Window *window2;
-SDL_Renderer *renderer2;
-int worldMap[mapWidth][mapHeight];
-
 /**
  * main - entery point to the program
  * Return: returns state of end
  */
 int main(void)
 {
-	parse_map(1);
+	int side = -1, map_on = 1;
+	int worldMap[mapWidth][mapHeight];
+	double posdx = 0, posdy = 0, state = 1;
+	double posx = 276.365627, posy = 292.160488;
+	double p_angle;
+	SDL_Window *window2;
+	SDL_Renderer *renderer2;
+
+	parse_map(1, worldMap);
 	posdx = 0;
 	posdy = 0;
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -27,17 +26,14 @@ int main(void)
 
 	while (state)
 	{
-		SDL_SetRenderDrawColor(renderer2, 0, 0, 255, 255);
-		SDL_RenderDrawLine(renderer2, screenWidth / 2, 0,
-						   screenWidth / 2, screenHeight);
-		move_turn_player();
-		intersections_combined();
+		move_turn_player(&p_angle, &posx, &posy, &state, &posdy,
+						 &posdx, &map_on, side, worldMap);
+		intersections_combined(renderer2, p_angle, posx, posy, side, worldMap);
 		if (map_on)
-			draw_world_on_viewport();
+			draw_world_on_viewport(renderer2, posx, posy, posdy, posdx, worldMap);
 		SDL_RenderPresent(renderer2);
 	}
 	SDL_DestroyRenderer(renderer2);
-	SDL_DestroyWindow(window);
 	SDL_DestroyWindow(window2);
 	SDL_Quit();
 	return (0);
