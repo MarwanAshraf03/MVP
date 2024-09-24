@@ -6,7 +6,7 @@
  */
 void parse_map(int lineNumber)
 {
-	FILE *maps = fopen("maps", "r");
+	FILE *maps = fopen("maps.txt", "r");
 	int count = 1;
 	char *map = malloc(486);
 

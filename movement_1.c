@@ -20,12 +20,24 @@ void move_turn_player(void)
 }
 
 /**
+ * handle_map_parsing - helper function for the switch_for_movement function
+ * @scancode: the button pressed
+ */
+void handle_map_parsing(int scancode)
+{
+	if (scancode >= 89 && scancode <= 94)
+		parse_map(scancode - 88);
+}
+
+/**
  * switch_for_movement - function for player movement
  * @ev: the event to be determined
  */
 void switch_for_movement(SDL_Event ev)
 {
-	switch (ev.key.keysym.scancode)
+	int scancode = ev.key.keysym.scancode;
+
+	switch (scancode)
 	{
 	case 82:
 		move_forward();
@@ -42,22 +54,11 @@ void switch_for_movement(SDL_Event ev)
 	case 41:
 		state = 0;
 		break;
-	case 89:
-		parse_map(1);
-		break;
-	case 90:
-		parse_map(2);
-		break;
-	case 91:
-		parse_map(3);
-		break;
-	case 92:
-		parse_map(4);
-		break;
-	case 93:
-		parse_map(5);
+	case 16:
+		map_on ^= 1;
 		break;
 	default:
+		handle_map_parsing(scancode);
 		break;
 	}
 }

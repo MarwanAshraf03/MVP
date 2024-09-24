@@ -12,7 +12,7 @@
 #define DEG 0.0174533
 
 extern double posx, posy, posdx, posdy, state;
-extern int side;
+extern int side, map_on;
 extern double p_angle;
 extern SDL_Window *window;
 extern SDL_Renderer *renderer;
@@ -20,12 +20,15 @@ extern SDL_Window *window2;
 extern SDL_Renderer *renderer2;
 extern int worldMap[mapHeight][mapWidth];
 
-/* draw.c */
-void draw_world(void);
-void draw_player(void);
+/* drawing.c */
+void draw_world_on_viewport(void);
+void draw_player_on_viewport(SDL_Rect rect);
+void DrawCircle(SDL_Renderer *renderer, int32_t centreX,
+				int32_t centreY, int32_t radius);
 
 /* movement_1.c */
 void move_turn_player(void);
+void handle_map_parsing(int scancode);
 void switch_for_movement(SDL_Event ev);
 int check_wall_front(void);
 int check_wall_back(void);
@@ -44,6 +47,7 @@ float dist(double *shorter);
 /* intersections_1.c */
 void intersections_combined(void);
 void draw_3d(double *sh, int r_no);
+void draw_ground_ceil(SDL_Rect rect, float line_height);
 
 /* intersections_2.c */
 void calculate_for_hor(double *p2_angle, double *rayx, double *rayy,
