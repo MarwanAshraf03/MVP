@@ -24,11 +24,17 @@ extern int worldMap[mapHeight][mapWidth];
 void draw_world(void);
 void draw_player(void);
 
-/* movement_and_casting.c */
+/* movement_1.c */
 void move_turn_player(void);
 void switch_for_movement(SDL_Event ev);
 int check_wall_front(void);
 int check_wall_back(void);
+
+/* movement_2.c */
+void move_forward(void);
+void move_backward(void);
+void turn_left(void);
+void turn_right(void);
 
 /* maths.c */
 double *shorter(double *h, double *v);
@@ -36,7 +42,7 @@ void ver_or_hor(int s);
 float dist(double *shorter);
 
 /* intersections_1.c */
-double *intersections_combined(void);
+void intersections_combined(void);
 void draw_3d(double *sh, int r_no);
 
 /* intersections_2.c */
@@ -52,10 +58,5 @@ void adjust_angle(double *p2_angle);
 
 /* parser.c */
 void parse_map(int lineNumber);
-
-void move_forward(void);
-void move_backward(void);
-void turn_left(void);
-void turn_right(void);
 
 #endif

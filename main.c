@@ -1,7 +1,7 @@
 #include "project.h"
 
-double posx = 128, posy = 128, posdx = 0, posdy = 0, state = 1;
-double p_angle = 10;
+double posx = 276.365627, posy = 292.160488, posdx = 0, posdy = 0, state = 1;
+double p_angle;
 int side = -1;
 SDL_Window *window;
 SDL_Renderer *renderer;
@@ -16,8 +16,8 @@ int worldMap[mapWidth][mapHeight];
 int main(void)
 {
 	parse_map(1);
-	posdx = 20;
-	posdy = 20;
+	posdx = 0;
+	posdy = 0;
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		return (1);
 	window = SDL_CreateWindow("Ray Caster", 0, 0,

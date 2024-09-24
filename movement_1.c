@@ -57,6 +57,8 @@ void switch_for_movement(SDL_Event ev)
 	case 93:
 		parse_map(5);
 		break;
+	default:
+		break;
 	}
 }
 
@@ -66,7 +68,7 @@ void switch_for_movement(SDL_Event ev)
  */
 int check_wall_front(void)
 {
-	int r_no, checks, right = -1, up = -1, mx, my;
+	int checks, right = -1, up = -1, mx, my;
 	double rayx, rayy, xd,
 		yd, vrayx, vrayy, p2_angle = p_angle, *sh,
 						  *ret = malloc(sizeof(double) * 2), *ret2 = malloc(sizeof(double) * 2);
@@ -98,15 +100,17 @@ int check_wall_front(void)
  */
 int check_wall_back(void)
 {
-	int r_no, checks, right = -1, up = -1, mx, my;
+	int checks, right = -1, up = -1, mx, my;
 	double rayx, rayy, xd,
 		yd, vrayx, vrayy, p2_angle = p_angle, *sh,
 						  *ret = malloc(sizeof(double) * 2), *ret2 = malloc(sizeof(double) * 2);
 
-	if (p2_angle >= 180)
+	if (p2_angle > 180)
 		p2_angle -= 180;
-	if (p2_angle < 180)
+	else if (p2_angle < 180)
 		p2_angle += 180;
+	else if (p2_angle == 180)
+		p2_angle = 0;
 	calculate_for_hor(&p2_angle, &rayx, &rayy, &yd, &xd, &checks, &up);
 	while (checks < 22)
 		if (!iterate_for_hor(&mx, &my, &up, &checks, &rayx, &rayy, &yd, &xd))

@@ -35,6 +35,18 @@ void calculate_for_hor(double *p2_angle, double *rayx, double *rayy,
 	}
 }
 
+/**
+ * iterate_for_hor - the single iteration for the horizontal line intersection
+ * @mx: the x index of the map
+ * @my: the y index of the map
+ * @up: flag of either the player facing up or down
+ * @checks: number of iterations done by the loop
+ * @rayx: the x axis of the horizontal intersection
+ * @rayy: the y axis of the horizontal intersection
+ * @yd: the displacement for the y axis
+ * @xd: the displacement for the x axis
+ * Return: the state of the intersection either 1 or 0
+ */
 int iterate_for_hor(int *mx, int *my, int *up, int *checks,
 					double *rayx, double *rayy, double *yd, double *xd)
 {
@@ -96,11 +108,22 @@ void calculate_for_ver(double *p2_angle, double *vrayx, double *vrayy,
 	}
 }
 
+/**
+ * iterate_for_hor - the single iteration for the horizontal line intersection
+ * @mx: the x index of the map
+ * @my: the y index of the map
+ * @right: flag of either the player facing right or left
+ * @checks: number of iterations done by the loop
+ * @vrayx: the x axis of the vertical intersection
+ * @vrayy: the y axis of the vertical intersection
+ * @yd: the displacement for the y axis
+ * @xd: the displacement for the x axis
+ * Return: the state of the intersection either 1 or 0
+ */
 int iterate_for_ver(int *mx, int *my, int *right, int *checks,
 					double *vrayx, double *vrayy, double *yd, double *xd)
 {
 	*my = (int)*vrayy / BLOCK_SIZE;
-	*mx;
 	if (*right)
 		*mx = ((int)*vrayx / BLOCK_SIZE);
 	if (!*right)

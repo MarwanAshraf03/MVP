@@ -33,14 +33,16 @@ void draw_world(void)
 void draw_player(void)
 {
 	SDL_Rect rect;
+	float center;
 
-	rect.h = rect.w = 10;
+	rect.h = rect.w = 8;
 	rect.x = posx, rect.y = posy;
-	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+	center = ((float)rect.w / 2.0);
+	SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
 	SDL_RenderFillRect(renderer, &rect);
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 	intersections_combined();
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-	SDL_RenderDrawLine(renderer, posx + 5, posy + 5,
-					   (posdx + (posx + 5)), (posdy + (posy + 5)));
+	SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+	SDL_RenderDrawLine(renderer, posx + center, posy + center,
+					   (posdx + (posx + center)), (posdy + (posy + center)));
 }

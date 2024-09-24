@@ -1,10 +1,9 @@
 #include "project.h"
 
 /**
- * intersections_combined - returns the coordinates of the
- * Return: returns coordinates of the shorter point
+ * intersections_combined - finds the walls of the map
  */
-double *intersections_combined(void)
+void intersections_combined(void)
 {
 	int r_no, checks, right = -1, up = -1, mx, my;
 	double rayx, rayy, xd, yd, vrayx, vrayy, p2_angle, *sh;
@@ -30,16 +29,16 @@ double *intersections_combined(void)
 		ret2[0] = vrayx;
 		ret2[1] = vrayy;
 		sh = shorter(ret, ret2);
-		SDL_RenderDrawLine(renderer, posx + 5, posy + 5, sh[0], sh[1]);
 		draw_3d(sh, r_no);
 		free(sh);
 	}
 }
 
 /**
- * draw_3d - returns the coordinates of the
- * @sh: coordinates of the horizontal intersection
- * @r_no: coordinates of the horizontal intersection
+ * draw_3d - draws the 3d world
+ * @sh: coordinates of the shorter ray either the
+ * horizontal or the vertical intersection ray
+ * @r_no: the ray number whcih helps in the placement of rays on the renderer
  */
 void draw_3d(double *sh, int r_no)
 {
